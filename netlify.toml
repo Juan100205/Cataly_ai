@@ -9,3 +9,6 @@
   for = "/*"
   [headers.values]
     X-Robots-Tag = "index, follow"
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, HEAD"
+    Access-Control-Allow-Headers = "*"
