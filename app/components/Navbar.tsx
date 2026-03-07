@@ -4,9 +4,14 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LogoWhite from '../assets/Logo_white.png';
+import LogoNegro from '../assets/Logo_negro.png';
+import { useLang } from '../i18n/LangContext';
+import { useTheme } from '../i18n/ThemeContext';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const { t } = useLang();
+    const { theme } = useTheme();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,24 +36,23 @@ export default function Navbar() {
 
                 {/* Logo */}
                 <Link href="/" className="flex items-center cursor-pointer">
-                    <Image src={LogoWhite} alt="Logo" width={100} height={100} />
+                    <Image src={theme === 'light' ? LogoNegro : LogoWhite} alt="Logo" width={85} height={85} />
                 </Link>
 
-
-                <nav className={`hidden md:flex items-center space-x-8 px-8 py-3 rounded-full transition-all duration-500 ${isScrolled ? 'bg-transparent border-transparent shadow-none' : 'bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
+                <nav className={`hidden md:flex items-center space-x-6 px-6 py-2.5 rounded-full transition-all duration-500 ${isScrolled ? 'bg-transparent border-transparent shadow-none' : 'bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.2)]'
                     }`}>
-                    <Link href="/" className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300">System</Link>
-                    <Link href="/product" className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300">Product</Link>
-                    <Link href="/results" className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300">Results</Link>
-                    <Link href="/security" className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300">Security</Link>
-                    <Link href="/about" className="text-sm font-medium text-white/70 hover:text-white transition-colors duration-300">About</Link>
+                    <Link href="/" className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300">{t.navbar.system}</Link>
+                    <Link href="/product" className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300">{t.navbar.product}</Link>
+                    <Link href="/results" className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300">{t.navbar.results}</Link>
+                    <Link href="/security" className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300">{t.navbar.security}</Link>
+                    <Link href="/about" className="text-sm font-medium text-white/60 hover:text-white transition-colors duration-300">{t.navbar.about}</Link>
                 </nav>
 
                 {/* Right Action */}
                 <div className="flex items-center">
                     <Link href="/deploy">
-                        <button className="text-sm font-medium text-white/90 hover:text-white px-4 py-2 rounded-full border border-white/10 hover:bg-white/10 hover:border-[#42C971]/30 hover:shadow-[0_0_20px_rgba(66,201,113,0.35)] cursor-pointer" style={{ transition: 'all 0.3s cubic-bezier(0.22, 1, 0.36, 1)' }}>
-                            Deploy System
+                        <button className="glass-btn text-sm font-medium cursor-pointer">
+                            {t.navbar.cta}
                         </button>
                     </Link>
                 </div>

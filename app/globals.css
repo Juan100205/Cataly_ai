@@ -57,3 +57,321 @@ body {
 * {
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* ===== LIGHT THEME OVERRIDES ===== */
+/*
+  Paleta basada en diseño de referencia:
+  Fondo principal : #E8EEE8  (verde salvia suave)
+  Tarjetas elevadas: #F0F6F0 (más claro que el fondo)
+  Tarjetas hundidas: #DCE6DC (más oscuro que el fondo)
+*/
+
+/* Transición suave al cambiar tema */
+html {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Body & main backgrounds */
+html.light body,
+html.light [class~="bg-[#0D0D0D]"] {
+  background-color: #E8EEE8 !important;
+}
+
+/* Navbar scrolled variants */
+html.light [class~="bg-[#0D0D0D]/60"] {
+  background-color: rgba(232, 238, 232, 0.78) !important;
+}
+html.light [class~="bg-[#0D0D0D]/80"] {
+  background-color: rgba(232, 238, 232, 0.90) !important;
+}
+html.light [class~="bg-[#0D0D0D]/90"] {
+  background-color: rgba(232, 238, 232, 0.94) !important;
+}
+
+/* Card backgrounds (#0A0A0A → claro elevado) */
+html.light [class~="bg-[#0A0A0A]"] {
+  background-color: #F0F6F0 !important;
+}
+
+/* Glass/overlay backgrounds */
+html.light [class~="bg-white/[0.02]"] {
+  background-color: rgba(255, 255, 255, 0.45) !important;
+}
+html.light [class~="bg-white/[0.03]"] {
+  background-color: rgba(255, 255, 255, 0.50) !important;
+}
+html.light [class~="bg-black/50"] {
+  background-color: rgba(200, 215, 200, 0.75) !important;
+}
+html.light [class~="bg-black/80"] {
+  background-color: rgba(200, 215, 200, 0.92) !important;
+}
+
+/* Text colors */
+html.light [class~="text-white"] {
+  color: #0D0D0D !important;
+}
+html.light [class~="text-white/90"] {
+  color: rgba(13, 13, 13, 0.90) !important;
+}
+html.light [class~="text-white/80"] {
+  color: rgba(13, 13, 13, 0.80) !important;
+}
+html.light [class~="text-white/70"] {
+  color: rgba(13, 13, 13, 0.70) !important;
+}
+html.light [class~="text-white/60"] {
+  color: rgba(13, 13, 13, 0.62) !important;
+}
+html.light [class~="text-white/50"] {
+  color: rgba(13, 13, 13, 0.55) !important;
+}
+html.light [class~="text-white/40"] {
+  color: rgba(13, 13, 13, 0.45) !important;
+}
+html.light [class~="text-white/30"] {
+  color: rgba(13, 13, 13, 0.35) !important;
+}
+
+/* Borders */
+html.light [class~="border-white/10"],
+html.light [class~="border-white/[0.1]"] {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+html.light [class~="border-white/[0.05]"] {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+html.light [class~="border-white/[0.08]"] {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+html.light [class~="border-transparent"] {
+  border-color: transparent !important;
+}
+
+/* Dividers */
+html.light [class~="divide-white/[0.05]"] > * + * {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ===== LIQUID GLASS SYSTEM v2 ===== */
+
+/*
+  Técnica de borde gradiente:
+  ::after con padding + mask-composite: exclude
+  → solo el anillo de borde es visible (el centro queda transparente).
+  @property --border-angle / --angle-1 permite animar el ángulo suavemente.
+*/
+
+@property --angle-1 {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 145deg;
+  inherits: false;
+}
+
+/* ---- Glass Card ---- */
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(21, 32, 24, 0.75) 100%);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35);
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Refracción desactivada */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/*
+  Borde gradiente — siempre visible.
+  Blanco brillante en la esquina superior-izquierda → verde en inferior-derecha.
+  En hover el ángulo rota 170° suavemente (vía @property).
+*/
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;                       /* grosor del borde */
+  background: transparent;
+  /* máscara: revela solo el anillo de 2px, oculta el centro */
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  z-index: 2;
+  transition: --border-angle 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.90) 0%, rgba(21, 32, 24, 0.82) 100%);
+  box-shadow:
+    0 18px 52px rgba(0, 0, 0, 0.45);
+}
+
+/* ---- Hover interactivo — solo cards clickeables ---- */
+.glass-hover {
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.glass-hover:hover {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(21, 32, 24, 0.88) 100%);
+  box-shadow:
+    0 0 0 1px rgba(66, 201, 113, 0.20),
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(66, 201, 113, 0.08);
+}
+
+/* En hover: el borde rota 170° + se vuelve más brillante */
+.glass-card:hover::after {
+  --border-angle: 315deg;
+  filter: brightness(1.50);
+}
+
+/* Light theme */
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.90),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05),
+    0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+html.light .glass-card::after {
+  background: linear-gradient(
+    var(--border-angle),
+    rgba(255, 255, 255, 0.30) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.02) 60%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+}
+
+html.light .glass-card:hover {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03),
+    0 16px 40px rgba(0, 0, 0, 0.09),
+    0 0 36px rgba(66, 201, 113, 0.13);
+}
+
+html.light .glass-card:hover::after {
+  --border-angle: 315deg;
+  filter: brightness(1.15);
+}
+
+/* ---- Glass Button ---- */
+
+.glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.52rem 1.3rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.86);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.80) 0%, rgba(21, 32, 24, 0.65) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  overflow: hidden;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+}
+
+/* Brillo desactivado */
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/*
+  Borde cónico con arco brillante.
+  En base: arco sutil siempre visible (blanco tenue + pico verde).
+  En hover: el ángulo gira 240° → el arco brillante da la vuelta al botón.
+*/
+.glass-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  padding: 2px;
+  background: transparent;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  transition: --angle-1 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass-btn:hover {
+  color: white;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88) 0%, rgba(21, 32, 24, 0.75) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.glass-btn:hover::before { opacity: 1; }
+
+/* El arco del borde gira 240° en hover */
+.glass-btn:hover::after {
+  --angle-1: 240deg;
+  filter: brightness(1.60);
+}
+
+.glass-btn:active { transform: translateY(0); }
+.glass-btn:active::after { --angle-1: 170deg; }
+
+@media (hover: none) and (pointer: coarse) {
+  .glass-btn:active::before { opacity: 1; }
+  .glass-btn:active::after  { --angle-1: 170deg; }
+}
+
+/* Light theme button */
+html.light .glass-btn {
+  color: rgba(13, 13, 13, 0.80);
+  background: rgba(255, 255, 255, 0.55);
+}
+html.light .glass-btn:hover {
+  color: #0D0D0D;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 6px 22px rgba(66, 201, 113, 0.20);
+}
