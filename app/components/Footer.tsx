@@ -32,17 +32,17 @@ export default function Footer() {
     const { t } = useLang();
 
     return (
-        <footer className="w-full bg-[#0A0A0C] pt-20 pb-10 px-5 relative mt-10 rounded-[2.5rem] border-t border-white/[0.05]">
+        <footer className="w-full bg-[#0A0A0C] pt-10 pb-8 px-5 relative mt-6 rounded-[2.5rem] border-t border-white/[0.05]">
             <div className="max-w-7xl mx-auto flex flex-col justify-between h-full relative z-10">
 
                 {/* Green Accent Line */}
-                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent opacity-80 mb-12 shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
+                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent opacity-80 mb-8 shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
 
                 {/* Middle Section: Links */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
 
                     {/* Logo Column */}
-                    <div className="col-span-1 md:col-span-2">
+                    <div className="col-span-2 md:col-span-2">
                         <Link href="/" className="flex items-center space-x-1 mb-4 cursor-pointer">
                             <span className="text-xl font-medium tracking-tight text-white">cataly.ai</span>
                         </Link>
@@ -78,13 +78,13 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Section */}
-                <div className="flex flex-col md:flex-row justify-between items-center w-full mt-auto">
-                    <div className="flex space-x-5 text-white/50 mb-5 md:mb-0">
+                <div className="flex flex-col md:flex-row justify-between items-center w-full mt-auto gap-4">
+                    <div className="flex space-x-5 text-white/50">
                         <InstagramIcon />
                         <WhatsAppIcon />
                         <MetaIcon />
                     </div>
-                    <div className="text-sm text-white/30 font-light">
+                    <div className="text-xs md:text-sm text-white/30 font-light text-center md:text-right">
                         {t.footer.copyright}
                     </div>
                 </div>

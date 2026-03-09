@@ -101,10 +101,10 @@ export default function Calculator() {
                         transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-baseline justify-center gap-2"
                     >
-                        <span className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#10B981]">
+                        <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#10B981]">
                             {formatCurrency(capitalLatente)}
                         </span>
-                        <span className="text-2xl text-white/30">USD</span>
+                        <span className="text-lg md:text-2xl text-white/30">USD</span>
                     </motion.div>
                     <p className="text-sm text-white/30 mt-4 font-light">{c.footnote}</p>
                 </div>
@@ -116,7 +116,7 @@ export default function Calculator() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#10B981] text-[#0A0A0C] font-medium text-base cursor-pointer hover:bg-[#0ea572] transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#10B981] text-[#0A0A0C] font-medium text-sm md:text-base cursor-pointer hover:bg-[#0ea572] transition-colors w-full sm:w-auto justify-center"
                     >
                         {c.cta}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
