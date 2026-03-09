@@ -38,20 +38,20 @@ export default function Experiences() {
     const { t } = useLang();
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 mt-5">
+        <div className="w-full max-w-7xl mx-auto px-4 mt-3">
 
             {/* Heading */}
-            <div className="text-center mb-12 px-4">
-                <p className="text-[10px] md:text-xs text-[#10B981] tracking-[0.25em] uppercase font-medium mb-4">
+            <div className="text-center mb-8 px-4">
+                <p className="text-[10px] md:text-xs text-[#10B981] tracking-[0.25em] uppercase font-medium mb-3">
                     Industry Data
                 </p>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-white">
                     {t.experiences.heading}
                 </h2>
             </div>
 
             {/* 3-column grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {factKeys.map((key, i) => {
                     const fact = t.experiences[key];
                     const Icon = icons[i];
@@ -67,25 +67,25 @@ export default function Experiences() {
                                 boxShadow: '0 0 28px rgba(16,185,129,0.18)',
                             }}
                             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                            className="glass-card glass-hover rounded-[2rem] p-8 md:p-10 flex flex-col"
+                            className="glass-card glass-hover rounded-[2rem] p-6 md:p-8 flex flex-col"
                         >
                             {/* Icon */}
-                            <div className="text-[#10B981] mb-6">
+                            <div className="text-[#10B981] mb-4">
                                 <Icon />
                             </div>
 
                             {/* Metric */}
-                            <div className="text-5xl md:text-6xl font-medium tracking-tight text-[#10B981] mb-4 tabular-nums">
+                            <div className="text-4xl md:text-5xl font-medium tracking-tight text-[#10B981] mb-3 tabular-nums">
                                 {fact.metric}
                             </div>
 
                             {/* Title */}
-                            <h3 className="text-lg font-normal text-white mb-3">
+                            <h3 className="text-base font-normal text-white mb-2">
                                 {fact.title}
                             </h3>
 
                             {/* Body */}
-                            <p className="text-sm text-white/60 font-light leading-relaxed">
+                            <p className="text-xs text-white/60 font-light leading-relaxed">
                                 {fact.body}
                             </p>
                         </motion.div>

@@ -69,23 +69,23 @@ export default function Problem() {
     const iconBoxClass = "w-10 h-10 md:w-14 md:h-14 rounded-xl glass-card flex items-center justify-center flex-shrink-0";
 
     return (
-        <div ref={containerRef} className="w-full h-[140vh] relative pt-8 rounded-3xl" style={{ isolation: 'isolate' }}>
+        <div ref={containerRef} className="w-full h-[130vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
             <div className="sticky top-8 h-screen w-full flex flex-col items-center justify-center overflow-hidden snap-start">
 
                 {/* Header */}
-                <div className="text-center mb-6 md:mb-3 px-4">
-                    <h2 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight text-white mb-4">
+                <div className="text-center mb-4 md:mb-3 px-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight text-white mb-3">
                         {t.problem.headingStart}{' '}
                         <span className="text-[#10B981]">{t.problem.headingGreen}</span>{' '}
                         {t.problem.headingEnd}
                     </h2>
-                    <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto font-light leading-relaxed">
+                    <p className="text-sm md:text-base text-white/60 max-w-xl mx-auto font-light leading-relaxed">
                         {t.problem.subheading}
                     </p>
                 </div>
 
                 {/* Diagram Area */}
-                <div className="relative w-full max-w-[1020px] h-[420px] md:h-[580px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
+                <div className="relative w-full max-w-[1020px] h-[360px] md:h-[480px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
 
                     {/* Background Graphic */}
                     <motion.div
@@ -96,7 +96,7 @@ export default function Problem() {
                     </motion.div>
 
                     {/* Cards */}
-                    <div className="absolute inset-0 z-20 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-7 p-4 md:p-12">
+                    <div className="absolute inset-0 z-20 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 p-3 md:p-8">
 
                         <motion.div style={{ opacity: c1o, y: c1y, scale: c1s }}
                             className={cardClass}

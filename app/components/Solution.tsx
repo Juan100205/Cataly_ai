@@ -99,21 +99,21 @@ export default function Solution() {
     const secCard3S = useTransform(scrollYProgress, [0.54, 0.69], [0.97, 1]);
 
     return (
-        <div ref={containerRef} className="w-full h-[140vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
+        <div ref={containerRef} className="w-full h-[130vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
             <div className="sticky top-8 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
 
                 {/* Header */}
-                <div className="text-center mb-6 md:mb-3 px-4">
-                    <h2 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight text-white mb-4">
+                <div className="text-center mb-4 md:mb-3 px-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight text-white mb-3">
                         {s.headingStart}{s.headingGreen && ` ${s.headingGreen}`}{s.headingEnd && ` ${s.headingEnd}`}
                     </h2>
-                    <p className="text-base md:text-lg text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
+                    <p className="text-sm md:text-base text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
                         {s.subheading}
                     </p>
                 </div>
 
                 {/* Display Area */}
-                <div className="relative w-full max-w-[1020px] h-[510px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
+                <div className="relative w-full max-w-[1020px] h-[430px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
 
                     {/* Background Graphic */}
                     <motion.div
@@ -129,12 +129,12 @@ export default function Solution() {
                         {/* Left Big Card */}
                         <motion.div
                             style={{ opacity: mainCardO, y: mainCardY, scale: mainCardS }}
-                            className="glass-card glass-hover w-full md:w-[45%] min-h-[240px] md:min-h-0 rounded-[2rem] overflow-hidden relative flex flex-col justify-between cursor-pointer will-change-transform"
+                            className="glass-card glass-hover w-full md:w-[45%] min-h-[200px] md:min-h-0 rounded-[2rem] overflow-hidden relative flex flex-col justify-between cursor-pointer will-change-transform"
                             whileHover={{ scale: 1.02 }}
                             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            <div className="p-8 z-10 relative">
-                                <h3 className="text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-6">
+                            <div className="p-6 z-10 relative">
+                                <h3 className="text-3xl md:text-4xl font-medium tracking-tight leading-[1.1] mb-4">
                                     <span className="text-[#10B981]">{s.mainCard.line1}</span><br />
                                     <span className="text-white">{s.mainCard.line2}</span><br />
                                     <span className="text-white">{s.mainCard.line3}</span>
@@ -143,7 +143,7 @@ export default function Solution() {
                                     {s.mainCard.body}
                                 </p>
                             </div>
-                            <div className="px-8 pb-8 z-10 relative w-fit">
+                            <div className="px-6 pb-6 z-10 relative w-fit">
                                 <button onClick={open} className="glass-btn text-sm cursor-pointer">
                                     {s.mainCard.cta}
                                 </button>
@@ -160,12 +160,12 @@ export default function Solution() {
 
                             <motion.div
                                 style={{ opacity: secCard1O, y: secCard1Y, scale: secCard1S }}
-                                className="glass-card glass-hover flex-1 rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden cursor-pointer will-change-transform"
+                                className="glass-card glass-hover flex-1 rounded-2xl p-5 flex flex-col justify-center relative overflow-hidden cursor-pointer will-change-transform"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-0"></div>
-                                <h3 className="text-2xl md:text-3xl font-normal text-white mb-3 leading-snug relative z-10">
+                                <h3 className="text-xl md:text-2xl font-normal text-white mb-2 leading-snug relative z-10">
                                     <span className="text-[#10B981]">{s.secCard1.titleGreen}</span>
                                     {s.secCard1.titleLine1}<br />
                                     {s.secCard1.titleLine2}
@@ -177,28 +177,28 @@ export default function Solution() {
 
                             <motion.div
                                 style={{ opacity: secCard2O, y: secCard2Y, scale: secCard2S }}
-                                className="glass-card glass-hover h-[120px] rounded-2xl p-6 flex flex-col justify-center cursor-pointer will-change-transform"
+                                className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <h3 className="text-xl md:text-2xl font-normal text-white mb-1.5 leading-snug">
+                                <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard2.titleHead}<span className="text-[#10B981]">{s.secCard2.titleGreen}</span>
                                 </h3>
-                                <p className="text-sm text-white/60 font-light leading-relaxed max-w-xl">
+                                <p className="text-xs text-white/60 font-light leading-relaxed max-w-xl">
                                     {s.secCard2.body}
                                 </p>
                             </motion.div>
 
                             <motion.div
                                 style={{ opacity: secCard3O, y: secCard3Y, scale: secCard3S }}
-                                className="glass-card glass-hover h-[120px] rounded-2xl p-6 flex flex-col justify-center cursor-pointer will-change-transform"
+                                className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <h3 className="text-xl md:text-2xl font-normal text-white mb-1.5 leading-snug">
+                                <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard3.titleHead}<span className="text-[#10B981]">{s.secCard3.titleGreen}</span>{s.secCard3.titleTail}
                                 </h3>
-                                <p className="text-sm text-white/60 font-light leading-relaxed max-w-xl">
+                                <p className="text-xs text-white/60 font-light leading-relaxed max-w-xl">
                                     {s.secCard3.body}
                                 </p>
                             </motion.div>

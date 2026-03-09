@@ -47,7 +47,7 @@ export default function Home() {
 
                 {/* Hero — siempre renderizado en server, nunca lazy */}
                 <motion.section
-                    className="w-full min-h-[calc(100vh-100px)] flex flex-col pb-5 px-1"
+                    className="w-full min-h-[calc(100vh-120px)] flex flex-col pb-4 px-1"
                     initial="hidden"
                     animate="visible"
                     variants={sectionVariants}
@@ -89,7 +89,7 @@ export default function Home() {
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full min-h-screen flex flex-col justify-center py-10"
+                    className="w-full flex flex-col justify-center py-6"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}

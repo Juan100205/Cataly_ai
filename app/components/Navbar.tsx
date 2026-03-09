@@ -37,7 +37,7 @@ export default function Navbar() {
             style={{ transition: 'padding 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}
         >
             <div className={`w-full max-w-7xl flex items-center justify-between px-6 py-2 rounded-[2rem] cursor-default ${isScrolled
-                ? 'backdrop-blur-xl bg-[#0A0A0C]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] scale-95 opacity-80 group-hover:scale-100 group-hover:opacity-100 group-hover:bg-[#0A0A0C]/80'
+                ? 'backdrop-blur-xl bg-[#0A0A0C]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] scale-95 opacity-30 group-hover:scale-100 group-hover:opacity-100 group-hover:bg-[#0A0A0C]/80'
                 : 'backdrop-blur-none bg-transparent border-transparent scale-100 opacity-100'
                 }`}
                 style={{ transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}>

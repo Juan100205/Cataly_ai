@@ -30,15 +30,15 @@ export default function Calculator() {
     const handleTicket = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setTicket(Number(e.target.value)), []);
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-10">
-            <div className="glass-card rounded-[2rem] p-8 md:p-14">
+        <div className="w-full max-w-7xl mx-auto px-4 py-6">
+            <div className="glass-card rounded-[2rem] p-6 md:p-10">
 
                 {/* Heading */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-8">
                     <p className="text-[10px] md:text-xs text-[#10B981] tracking-[0.25em] uppercase font-medium mb-4">
                         Revenue Intelligence
                     </p>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-white mb-3">
                         {c.heading}
                     </h2>
                     <p className="text-base text-white/60 max-w-xl mx-auto font-light leading-relaxed">
@@ -47,7 +47,7 @@ export default function Calculator() {
                 </div>
 
                 {/* Sliders */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 
                     <div>
                         <div className="flex justify-between items-baseline mb-3">
@@ -92,7 +92,7 @@ export default function Calculator() {
                 </div>
 
                 {/* Output */}
-                <div className="text-center py-10 border-t border-b border-white/[0.05]">
+                <div className="text-center py-6 border-t border-b border-white/[0.05]">
                     <p className="text-xs text-white/40 tracking-[0.2em] uppercase mb-4">{c.outputLabel}</p>
                     <motion.div
                         key={capitalLatente}
@@ -101,7 +101,7 @@ export default function Calculator() {
                         transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                         className="flex items-baseline justify-center gap-2"
                     >
-                        <span className="text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight text-[#10B981]">
+                        <span className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-[#10B981]">
                             {formatCurrency(capitalLatente)}
                         </span>
                         <span className="text-2xl text-white/30">USD</span>
@@ -110,7 +110,7 @@ export default function Calculator() {
                 </div>
 
                 {/* CTA */}
-                <div className="text-center mt-10">
+                <div className="text-center mt-6">
                     <motion.button
                         onClick={open}
                         whileHover={{ scale: 1.02 }}
