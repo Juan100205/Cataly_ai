@@ -3,25 +3,25 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --accent: #10B981;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0a0c;
+    --foreground: #e2e2e2;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: #e2e2e2;
   font-family: var(--font-sans), sans-serif;
 }
 
@@ -58,6 +58,26 @@ body {
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ===== RENDERING PERFORMANCE ===== */
+
+/* Deja que el browser salte el render de secciones off-screen */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px; /* estimación de altura para evitar layout shift */
+}
+
+/* Optimiza compositing en elementos animados */
+.glass-card,
+.glass-btn {
+  will-change: transform;
+  transform: translateZ(0); /* promueve a su propia capa GPU */
+}
+
+/* Imágenes: siempre lazy por defecto salvo explicit eager */
+img:not([loading="eager"]) {
+  loading: lazy;
+}
+
 /* ===== LIGHT THEME OVERRIDES ===== */
 /*
   Paleta basada en diseño de referencia:
@@ -73,18 +93,22 @@ html {
 
 /* Body & main backgrounds */
 html.light body,
-html.light [class~="bg-[#0D0D0D]"] {
+html.light [class~="bg-[#0D0D0D]"],
+html.light [class~="bg-[#0A0A0C]"] {
   background-color: #E8EEE8 !important;
 }
 
 /* Navbar scrolled variants */
-html.light [class~="bg-[#0D0D0D]/60"] {
+html.light [class~="bg-[#0D0D0D]/60"],
+html.light [class~="bg-[#0A0A0C]/60"] {
   background-color: rgba(232, 238, 232, 0.78) !important;
 }
-html.light [class~="bg-[#0D0D0D]/80"] {
+html.light [class~="bg-[#0D0D0D]/80"],
+html.light [class~="bg-[#0A0A0C]/80"] {
   background-color: rgba(232, 238, 232, 0.90) !important;
 }
-html.light [class~="bg-[#0D0D0D]/90"] {
+html.light [class~="bg-[#0D0D0D]/90"],
+html.light [class~="bg-[#0A0A0C]/90"] {
   background-color: rgba(232, 238, 232, 0.94) !important;
 }
 
@@ -178,7 +202,7 @@ html.light [class~="divide-white/[0.05]"] > * + * {
 
 .glass-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(21, 32, 24, 0.75) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(10, 22, 18, 0.75) 100%);
   backdrop-filter: blur(20px) saturate(1.3);
   -webkit-backdrop-filter: blur(20px) saturate(1.3);
   box-shadow:
@@ -224,7 +248,7 @@ html.light [class~="divide-white/[0.05]"] > * + * {
 }
 
 .glass-card:hover {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.90) 0%, rgba(21, 32, 24, 0.82) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.90) 0%, rgba(10, 22, 18, 0.82) 100%);
   box-shadow:
     0 18px 52px rgba(0, 0, 0, 0.45);
 }
@@ -237,11 +261,11 @@ html.light [class~="divide-white/[0.05]"] > * + * {
 }
 
 .glass-hover:hover {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(21, 32, 24, 0.88) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.92) 0%, rgba(10, 22, 18, 0.88) 100%);
   box-shadow:
-    0 0 0 1px rgba(66, 201, 113, 0.20),
+    0 0 0 1px rgba(16, 185, 129, 0.20),
     0 20px 50px rgba(0, 0, 0, 0.55),
-    0 0 30px rgba(66, 201, 113, 0.08);
+    0 0 30px rgba(16, 185, 129, 0.08);
 }
 
 /* En hover: el borde rota 170° + se vuelve más brillante */
@@ -275,7 +299,7 @@ html.light .glass-card:hover {
     inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     inset 0 -1px 0 rgba(0, 0, 0, 0.03),
     0 16px 40px rgba(0, 0, 0, 0.09),
-    0 0 36px rgba(66, 201, 113, 0.13);
+    0 0 36px rgba(16, 185, 129, 0.13);
 }
 
 html.light .glass-card:hover::after {
@@ -297,7 +321,7 @@ html.light .glass-card:hover::after {
   font-size: 0.875rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.86);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.80) 0%, rgba(21, 32, 24, 0.65) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.80) 0%, rgba(10, 22, 18, 0.65) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   overflow: hidden;
@@ -344,7 +368,7 @@ html.light .glass-card:hover::after {
 
 .glass-btn:hover {
   color: white;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88) 0%, rgba(21, 32, 24, 0.75) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88) 0%, rgba(10, 22, 18, 0.75) 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
@@ -373,5 +397,48 @@ html.light .glass-btn {
 html.light .glass-btn:hover {
   color: #0D0D0D;
   background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 6px 22px rgba(66, 201, 113, 0.20);
+  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.20);
+}
+
+/* ===== CALCULATOR SLIDER ===== */
+
+.calc-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10B981;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.20);
+  transition: box-shadow 0.2s ease;
+}
+
+.calc-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.25);
+}
+
+.calc-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10B981;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.20);
+}
+
+html.light .calc-slider {
+  background: rgba(0, 0, 0, 0.10);
 }

@@ -7,18 +7,26 @@ import LogoWhite from '../assets/Logo_white.png';
 import LogoNegro from '../assets/Logo_negro.png';
 import { useLang } from '../i18n/LangContext';
 import { useTheme } from '../i18n/ThemeContext';
+import { useDemoModal } from '../i18n/DemoModalContext';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { t } = useLang();
     const { theme } = useTheme();
+    const { open } = useDemoModal();
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    setIsScrolled(window.scrollY > 50);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
-
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -29,7 +37,7 @@ export default function Navbar() {
             style={{ transition: 'padding 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}
         >
             <div className={`w-full max-w-7xl flex items-center justify-between px-6 py-2 rounded-[2rem] cursor-default ${isScrolled
-                ? 'backdrop-blur-xl bg-[#0D0D0D]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] scale-95 opacity-80 group-hover:scale-100 group-hover:opacity-100 group-hover:bg-[#0D0D0D]/80'
+                ? 'backdrop-blur-xl bg-[#0A0A0C]/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] scale-95 opacity-80 group-hover:scale-100 group-hover:opacity-100 group-hover:bg-[#0A0A0C]/80'
                 : 'backdrop-blur-none bg-transparent border-transparent scale-100 opacity-100'
                 }`}
                 style={{ transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)' }}>
@@ -50,11 +58,9 @@ export default function Navbar() {
 
                 {/* Right Action */}
                 <div className="flex items-center">
-                    <Link href="/deploy">
-                        <button className="glass-btn text-sm font-medium cursor-pointer">
-                            {t.navbar.cta}
-                        </button>
-                    </Link>
+                    <button onClick={open} className="glass-btn text-sm font-medium cursor-pointer">
+                        {t.navbar.cta}
+                    </button>
                 </div>
 
             </div>

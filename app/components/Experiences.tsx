@@ -1,149 +1,98 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { useLang } from '../i18n/LangContext';
 
-const GlobeIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-20 h-20 mx-auto text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.974 0-5.748.11-8.318.315m16.16 0A8.99 8.99 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+const ClockIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
     </svg>
 );
 
-const ChatIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-20 h-20 mx-auto text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.84 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+const ChartDownIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.511-5.511-3.182" />
     </svg>
 );
 
-const DatabaseIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-20 h-20 mx-auto text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+const NetworkIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.348 14.652a3.75 3.75 0 0 1 0-5.304m5.304 0a3.75 3.75 0 0 1 0 5.304m-7.425 2.121a6.75 6.75 0 0 1 0-9.546m9.546 0a6.75 6.75 0 0 1 0 9.546M5.106 18.894c-3.808-3.807-3.808-9.98 0-13.788m13.788 0c3.808 3.807 3.808 9.98 0 13.788M12 12h.008v.008H12V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
     </svg>
 );
 
-const ArrowRightIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-    </svg>
-);
+const icons = [ClockIcon, ChartDownIcon, NetworkIcon];
+const factKeys = ['fact1', 'fact2', 'fact3'] as const;
 
-const ArrowLeftIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-white">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-    </svg>
-);
+const cardVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: 'easeOut' as const, delay: i * 0.1 },
+    }),
+};
 
 export default function Experiences() {
-    const scrollRef = useRef<HTMLDivElement>(null);
     const { t } = useLang();
-
-    const scrollRight = () => {
-        if (scrollRef.current) {
-            const container = scrollRef.current;
-            const scrollAmount = container.clientWidth * 0.8;
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            if (container.scrollLeft >= maxScroll - 10) {
-                container.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-        }
-    };
-
-    const scrollLeft = () => {
-        if (scrollRef.current) {
-            const container = scrollRef.current;
-            const scrollAmount = container.clientWidth * 0.8;
-            if (container.scrollLeft <= 10) {
-                container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
-            } else {
-                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            }
-        }
-    };
 
     return (
         <div className="w-full max-w-7xl mx-auto px-4 mt-5">
-            <div className="relative group">
 
-                {/* Scroll Container */}
-                <div
-                    ref={scrollRef}
-                    className="flex overflow-x-auto snap-x snap-mandatory gap-5 pb-6 hide-scrollbar scroll-smooth"
-                >
-                    {[1, 2, 3].map((item, index) => (
-                        <div key={index} className="flex-none w-full min-w-[300px] md:min-w-[680px] snap-center">
-                            <div className="flex flex-col rounded-[2rem] glass-card glass-hover overflow-hidden">
-
-                                {/* Title Section */}
-                                <div className="pt-10 text-center border-b border-white/[0.05] relative">
-                                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-white mb-16 px-4">
-                                        {t.experiences.heading}
-                                    </h2>
-
-                                    {/* Icons Grid */}
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-0 px-0 mb-0">
-                                        <div className="flex flex-col items-center justify-center p-4">
-                                            <GlobeIcon />
-                                        </div>
-                                        <div className="flex flex-col items-center justify-center p-4">
-                                            <ChatIcon />
-                                        </div>
-                                        <div className="flex flex-col items-center justify-end p-12 relative group-hover/text:opacity-100 bg-gradient-to-t from-[#28492C]/40 to-transparent">
-                                            <DatabaseIcon />
-                                            <div className="absolute -bottom-7 w-full text-center">
-                                                <p className="text-xs text-white/50 pb-8 rounded-lg">
-                                                    {t.experiences.lorem}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Stats Section */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.05]">
-                                    <div className="flex flex-col items-center justify-center py-10 px-5">
-                                        <span className="text-4xl md:text-6xl font-medium tracking-tight text-white mb-3">{t.experiences.stat1.value}</span>
-                                        <span className="text-sm md:text-base text-white/60 tracking-wide font-light text-center">{t.experiences.stat1.label}</span>
-                                    </div>
-                                    <div className="flex flex-col items-center justify-center py-10 px-5">
-                                        <span className="text-4xl md:text-6xl font-medium tracking-tight text-white mb-3">{t.experiences.stat2.value}</span>
-                                        <span className="text-sm md:text-base text-white/60 tracking-wide font-light text-center">{t.experiences.stat2.label}</span>
-                                    </div>
-                                    <div className="flex flex-col items-center justify-center pb-10 px-5">
-                                        <span className="text-4xl md:text-6xl font-medium tracking-tight text-white mb-3">{t.experiences.stat3.value}</span>
-                                        <span className="text-sm md:text-base text-white/60 tracking-wide font-light text-center">{t.experiences.stat3.label}</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Left Arrow */}
-                <button
-                    onClick={scrollLeft}
-                    className="absolute left-0 top-1/2 md:-translate-x-1/2 -translate-y-1/2 z-50 hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-white/[0.1] bg-black/50 backdrop-blur-md shadow-xl lg:left-[-20px] 2xl:left-[-40px] hover:bg-black/80 hover:shadow-[0_0_20px_rgba(66,201,113,0.4)] hover:border-[#42C971]/40 transition-all active:scale-95 cursor-pointer group/arrow-left"
-                    aria-label="Scroll left"
-                >
-                    <div className="group-hover/arrow-left:text-[#42C971] transition-colors">
-                        <ArrowLeftIcon />
-                    </div>
-                </button>
-
-                {/* Right Arrow */}
-                <button
-                    onClick={scrollRight}
-                    className="absolute right-0 top-1/2 md:translate-x-1/2 -translate-y-1/2 z-50 hidden md:flex items-center justify-center w-10 h-10 rounded-full border border-white/[0.1] bg-black/50 backdrop-blur-md shadow-xl lg:right-[-20px] 2xl:right-[-40px] hover:bg-black/80 hover:shadow-[0_0_20px_rgba(66,201,113,0.4)] hover:border-[#42C971]/40 transition-all active:scale-95 cursor-pointer group/arrow-right"
-                    aria-label="Scroll right"
-                >
-                    <div className="group-hover/arrow-right:text-[#42C971] transition-colors">
-                        <ArrowRightIcon />
-                    </div>
-                </button>
-
+            {/* Heading */}
+            <div className="text-center mb-12 px-4">
+                <p className="text-[10px] md:text-xs text-[#10B981] tracking-[0.25em] uppercase font-medium mb-4">
+                    Industry Data
+                </p>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white">
+                    {t.experiences.heading}
+                </h2>
             </div>
+
+            {/* 3-column grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {factKeys.map((key, i) => {
+                    const fact = t.experiences[key];
+                    const Icon = icons[i];
+                    return (
+                        <motion.div
+                            key={key}
+                            custom={i}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.15 }}
+                            variants={cardVariants}
+                            whileHover={{
+                                boxShadow: '0 0 28px rgba(16,185,129,0.18)',
+                            }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            className="glass-card glass-hover rounded-[2rem] p-8 md:p-10 flex flex-col"
+                        >
+                            {/* Icon */}
+                            <div className="text-[#10B981] mb-6">
+                                <Icon />
+                            </div>
+
+                            {/* Metric */}
+                            <div className="text-5xl md:text-6xl font-medium tracking-tight text-[#10B981] mb-4 tabular-nums">
+                                {fact.metric}
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-lg font-normal text-white mb-3">
+                                {fact.title}
+                            </h3>
+
+                            {/* Body */}
+                            <p className="text-sm text-white/60 font-light leading-relaxed">
+                                {fact.body}
+                            </p>
+                        </motion.div>
+                    );
+                })}
+            </div>
+
         </div>
     );
 }

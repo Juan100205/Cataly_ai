@@ -32,11 +32,11 @@ export default function Footer() {
     const { t } = useLang();
 
     return (
-        <footer className="w-full bg-[#0D0D0D] pt-20 pb-10 px-5 relative mt-10 rounded-[2.5rem] border-t border-white/[0.05]">
+        <footer className="w-full bg-[#0A0A0C] pt-20 pb-10 px-5 relative mt-10 rounded-[2.5rem] border-t border-white/[0.05]">
             <div className="max-w-7xl mx-auto flex flex-col justify-between h-full relative z-10">
 
                 {/* Green Accent Line */}
-                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#42C971] to-transparent opacity-80 mb-12 shadow-[0_0_15px_rgba(66,201,113,0.5)]"></div>
+                <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#10B981] to-transparent opacity-80 mb-12 shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
 
                 {/* Middle Section: Links */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">

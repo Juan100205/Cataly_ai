@@ -4,8 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SolutionImg from '../assets/Solution.png';
 import BrainImg from '../assets/Brain.png';
+import { useLang } from '../i18n/LangContext';
+import { translations } from '../i18n/translations';
 
 export default function ProductPage() {
+    const { lang } = useLang();
+    const t = translations[lang].product;
+
     return (
         <div className="min-h-screen bg-transparent text-white pt-32 pb-20 px-6">
             <div className="max-w-7xl mx-auto">
@@ -17,11 +22,10 @@ export default function ProductPage() {
                     className="text-center mb-20"
                 >
                     <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-8">
-                        The <span className="text-[#42C971]">Intelligent</span> Lead Engine.
+                        {t.heroHeadingStart} <span className="text-[#10B981]">{t.heroHeadingGreen}</span> {t.heroHeadingEnd}
                     </h1>
                     <p className="text-xl text-white/50 max-w-3xl mx-auto font-light leading-relaxed">
-                        Our proprietary filtering system replaces human manual qualification with real-time algorithmic precision.
-                        Every lead is analyzed, scored, and prioritized in under 60 seconds.
+                        {t.heroSubtitle}
                     </p>
                 </motion.div>
 
@@ -33,20 +37,14 @@ export default function ProductPage() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl md:text-4xl font-normal mb-6">Neural Lead Scoring</h2>
+                        <h2 className="text-3xl md:text-4xl font-normal mb-6">{t.scoringHeading}</h2>
                         <p className="text-white/40 text-lg mb-8 font-light">
-                            Using deep learning models trained on millions of high-converting B2B interactions,
-                            Cataly AI identifies "ready-to-buy" signals that traditional CRM systems miss.
+                            {t.scoringBody}
                         </p>
                         <ul className="space-y-4">
-                            {[
-                                "Behavioral Intent Analysis",
-                                "Firmographic Data Enrichment",
-                                "Predictive Conversion Scoring",
-                                "Automated Outreach Triggers"
-                            ].map((item, i) => (
+                            {t.scoringItems.map((item, i) => (
                                 <li key={i} className="flex items-center space-x-3">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#42C971]" />
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
                                     <span className="text-white/70 font-light">{item}</span>
                                 </li>
                             ))}
@@ -59,7 +57,7 @@ export default function ProductPage() {
                         viewport={{ once: true }}
                         className="relative aspect-square rounded-[3rem] border border-white/[0.05] bg-white/[0.01] flex items-center justify-center overflow-hidden"
                     >
-                        <div className="absolute inset-0 bg-gradient-radial from-[#42C971]/10 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-radial from-[#10B981]/10 to-transparent"></div>
                         <img src={SolutionImg.src} alt="Lead Filtering Diagram" className="relative z-10 w-[80%] opacity-80" />
                     </motion.div>
                 </div>
@@ -72,13 +70,12 @@ export default function ProductPage() {
                     className="w-full rounded-[3rem] border border-white/[0.08] bg-[#0A0A0A] p-12 md:p-20 relative overflow-hidden"
                 >
                     <div className="relative z-10 max-w-2xl">
-                        <h3 className="text-4xl font-medium mb-6">Zero Latency Integration</h3>
+                        <h3 className="text-4xl font-medium mb-6">{t.integrationHeading}</h3>
                         <p className="text-white/50 text-lg font-light mb-10">
-                            Deploy our infrastructure directly into your current stack. Our API-first approach ensures
-                            that your data flows seamlessly between your acquisition channels and your sales floor without a single millisecond of delay.
+                            {t.integrationBody}
                         </p>
-                        <button className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:border-[#42C971]/40 hover:bg-white/10 transition-all duration-300">
-                            View API Documentation
+                        <button className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:border-[#10B981]/40 hover:bg-white/10 transition-all duration-300">
+                            {t.integrationCta}
                         </button>
                     </div>
 
@@ -90,8 +87,8 @@ export default function ProductPage() {
 
             {/* Background Glows */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#42C971]/[0.02] blur-[150px] rounded-full"></div>
-                <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-[#42C971]/[0.01] blur-[120px] rounded-full"></div>
+                <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#10B981]/[0.02] blur-[150px] rounded-full"></div>
+                <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-[#10B981]/[0.01] blur-[120px] rounded-full"></div>
             </div>
         </div>
     );

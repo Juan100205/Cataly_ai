@@ -2,8 +2,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLang } from '../i18n/LangContext';
+import { translations } from '../i18n/translations';
 
 export default function PrivacyPage() {
+    const { lang } = useLang();
+    const t = translations[lang].privacy;
+
     return (
         <div className="min-h-screen bg-transparent text-white pt-32 pb-20 px-6 font-sans">
             <div className="max-w-4xl mx-auto">
@@ -14,41 +19,23 @@ export default function PrivacyPage() {
                     className="mb-20"
                 >
                     <h1 className="text-5xl md:text-6xl font-light tracking-tight mb-8">
-                        Privacy <span className="text-[#42C971]">Policy</span>.
+                        {t.heroHeadingStart} <span className="text-[#10B981]">{t.heroHeadingGreen}</span>.
                     </h1>
-                    <p className="text-white/40 text-lg font-light">Last Updated: March 2026</p>
+                    <p className="text-white/40 text-lg font-light">{t.lastUpdated}</p>
                 </motion.div>
 
                 <div className="space-y-16">
-                    <section>
-                        <h2 className="text-2xl font-medium mb-6 text-white/90">1. Data Collection</h2>
-                        <p className="text-white/50 leading-relaxed font-light">
-                            Cataly AI collects minimal data necessary to power your neural infrastructure. This includes interaction metadata,
-                            firmographic information, and lead-provided inputs. We never collect data beyond the scope of operational reactivation.
-                        </p>
-                    </section>
-
-                    <section>
-                        <h2 className="text-2xl font-medium mb-6 text-white/90">2. Processing & Neural Layers</h2>
-                        <p className="text-white/50 leading-relaxed font-light">
-                            Data processed through our neural engines is anonymized at the edge. Our models are trained to detect intent
-                            without retaining personally identifiable information (PII) longer than required for the active session.
-                        </p>
-                    </section>
-
-                    <section>
-                        <h2 className="text-2xl font-medium mb-6 text-white/90">3. Third-party Integration</h2>
-                        <p className="text-white/50 leading-relaxed font-light">
-                            When you connect Cataly AI to third-party CRMs or marketing platforms, data is transmitted via end-to-end
-                            encrypted tunnels. We do not sell or share your data with external advertisers.
-                        </p>
-                    </section>
+                    {t.sections.map((section, i) => (
+                        <section key={i}>
+                            <h2 className="text-2xl font-medium mb-6 text-white/90">{section.heading}</h2>
+                            <p className="text-white/50 leading-relaxed font-light">{section.body}</p>
+                        </section>
+                    ))}
 
                     <section className="p-10 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-                        <h2 className="text-2xl font-medium mb-4 text-[#42C971]">Your Rights</h2>
+                        <h2 className="text-2xl font-medium mb-4 text-[#10B981]">{t.rightsHeading}</h2>
                         <p className="text-white/50 leading-relaxed font-light">
-                            Under global privacy standards (GDPR, CCPA), you reserve the right to request data erasure,
-                            portability, and access at any time through our security portal.
+                            {t.rightsBody}
                         </p>
                     </section>
                 </div>
@@ -56,7 +43,7 @@ export default function PrivacyPage() {
 
             {/* Background Glows */}
             <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[30%] left-[-10%] w-[500px] h-[500px] bg-[#42C971]/[0.02] blur-[150px] rounded-full"></div>
+                <div className="absolute top-[30%] left-[-10%] w-[500px] h-[500px] bg-[#10B981]/[0.02] blur-[150px] rounded-full"></div>
             </div>
         </div>
     );

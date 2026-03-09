@@ -76,7 +76,7 @@ export default function Problem() {
                 <div className="text-center mb-6 md:mb-3 px-4">
                     <h2 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight text-white mb-4">
                         {t.problem.headingStart}{' '}
-                        <span className="text-[#42C971]">{t.problem.headingGreen}</span>{' '}
+                        <span className="text-[#10B981]">{t.problem.headingGreen}</span>{' '}
                         {t.problem.headingEnd}
                     </h2>
                     <p className="text-base md:text-lg text-white/60 max-w-xl mx-auto font-light leading-relaxed">

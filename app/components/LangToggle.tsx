@@ -26,10 +26,10 @@ export default function LangToggle() {
         border border-r-0 backdrop-blur-md
         text-xs font-medium tracking-widest
         transition-all duration-300 cursor-pointer select-none
-        hover:border-[#42C971]/40
+        hover:border-[#10B981]/40
         ${isLight
             ? 'bg-[#F2F2EE]/90 border-black/10 text-[#0D0D0D]/70 hover:text-[#0D0D0D]'
-            : 'bg-[#0D0D0D]/90 border-white/10 text-white/70 hover:text-white'
+            : 'bg-[#0A0A0C]/90 border-white/10 text-white/70 hover:text-white'
         }`;
 
     return (
