@@ -268,6 +268,11 @@ html.light [class~="divide-white/[0.05]"] > * + * {
     0 0 30px rgba(16, 185, 129, 0.08);
 }
 
+.light .glass-hover:hover {
+  background: initial;
+  box-shadow: none;
+}
+
 /* En hover: el borde rota 170° + se vuelve más brillante */
 .glass-card:hover::after {
   --border-angle: 315deg;

@@ -2,9 +2,11 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import SolutionImg from '../assets/Solution.png';
+import SolutionDark from '../assets/Solution Dark.png';
+import SolutionLight from '../assets/Solution Light.png';
 import { useLang } from '../i18n/LangContext';
 import { useDemoModal } from '../i18n/DemoModalContext';
+import { useTheme } from '../i18n/ThemeContext';
 
 const NodeTopology = () => (
     <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -49,6 +51,10 @@ function DesktopSolution() {
     const { open } = useDemoModal();
     const s = t.solution;
 
+    const { theme } = useTheme();
+    const SolutionImg = theme === 'light' ? SolutionLight : SolutionDark;
+    const hoverScale = theme === 'light' ? {} : { scale: 1.02 };
+
     const { scrollYProgress: rawProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
     const scrollYProgress = useSpring(rawProgress, { stiffness: 22, damping: 45, mass: 1.0, restDelta: 0.0005 });
 
@@ -77,7 +83,7 @@ function DesktopSolution() {
                     <p className="text-sm md:text-base text-white/60 max-w-2xl mx-auto font-light leading-relaxed">{s.subheading}</p>
                 </div>
 
-                <div className="relative w-full max-w-[1020px] h-[430px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
+                <div className="relative w-full max-w-[1020px] h-[510px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
                     <motion.div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none will-change-transform" style={{ opacity: diagramOpacity, scale: diagramScale }}>
                         <img src={SolutionImg.src} alt="Diagram" />
                     </motion.div>
@@ -85,7 +91,7 @@ function DesktopSolution() {
                     <div className="absolute inset-0 z-20 w-full h-full p-3 md:p-4 flex flex-col md:flex-row gap-4 md:gap-5 overflow-hidden">
                         <motion.div style={{ opacity: mainCardO, y: mainCardY, scale: mainCardS }}
                             className="glass-card glass-hover w-full md:w-[45%] min-h-[200px] md:min-h-0 rounded-[2rem] overflow-hidden relative flex flex-col justify-between cursor-pointer will-change-transform"
-                            whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <div className="p-6 z-10 relative">
                                 <h3 className="text-3xl md:text-4xl font-medium tracking-tight leading-[1.1] mb-4">
@@ -106,7 +112,7 @@ function DesktopSolution() {
                         <div className="w-full md:w-[55%] flex flex-col gap-4 md:gap-5">
                             <motion.div style={{ opacity: secCard1O, y: secCard1Y, scale: secCard1S }}
                                 className="glass-card glass-hover flex-1 rounded-2xl p-5 flex flex-col justify-center relative overflow-hidden cursor-pointer will-change-transform"
-                                whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-0" />
                                 <h3 className="text-xl md:text-2xl font-normal text-white mb-2 leading-snug relative z-10">
@@ -117,7 +123,7 @@ function DesktopSolution() {
 
                             <motion.div style={{ opacity: secCard2O, y: secCard2Y, scale: secCard2S }}
                                 className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
-                                whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard2.titleHead}<span className="text-[#10B981]">{s.secCard2.titleGreen}</span>
@@ -127,7 +133,7 @@ function DesktopSolution() {
 
                             <motion.div style={{ opacity: secCard3O, y: secCard3Y, scale: secCard3S }}
                                 className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
-                                whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard3.titleHead}<span className="text-[#10B981]">{s.secCard3.titleGreen}</span>{s.secCard3.titleTail}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import SolutionImg from '../assets/Solution.png';
+import SolutionImg from '../assets/Solution Dark.png';
 import BrainImg from '../assets/Brain.png';
 import { useLang } from '../i18n/LangContext';
 import { translations } from '../i18n/translations';

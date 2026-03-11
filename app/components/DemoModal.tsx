@@ -5,16 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDemoModal } from '../i18n/DemoModalContext';
 import { useLang } from '../i18n/LangContext';
 
-// TODO: Replace with your actual Calendly URLs
-const CALENDLY_URL_ES =
-    'https://calendly.com/cataly-ai/demo-privada?background_color=0a0a0c&text_color=e2e2e2&primary_color=10b981&hide_event_type_details=1&hide_gdpr_banner=1';
-const CALENDLY_URL_EN =
-    'https://calendly.com/cataly-ai/private-demo?background_color=0a0a0c&text_color=e2e2e2&primary_color=10b981&hide_event_type_details=1&hide_gdpr_banner=1';
+const CALENDLY_URL =
+    'https://calendly.com/management-catalylabs?background_color=0a0a0c&text_color=e2e2e2&primary_color=10b981&hide_gdpr_banner=1';
 
 export default function DemoModal() {
     const { isOpen, close } = useDemoModal();
     const { lang } = useLang();
-    const calendlyUrl = lang === 'es' ? CALENDLY_URL_ES : CALENDLY_URL_EN;
+    const calendlyUrl = CALENDLY_URL;
 
     return (
         <AnimatePresence>

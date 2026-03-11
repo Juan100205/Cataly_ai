@@ -2,8 +2,10 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import ProblemImg from '../assets/Problem.png';
+import ProblemDark from '../assets/Problem Dark.png';
+import ProblemLight from '../assets/Problem Light.png';
 import { useLang } from '../i18n/LangContext';
+import { useTheme } from '../i18n/ThemeContext';
 
 const ClockIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-5 h-5 text-white/70">
@@ -34,23 +36,27 @@ function DesktopProblem() {
     const { t } = useLang();
     const { card1, card2, card3, card4 } = t.problem;
 
+    const { theme } = useTheme();
+    const hoverScale = theme === 'light' ? {} : { scale: 1.02 };
+    const ProblemImg = theme === 'light' ? ProblemLight : ProblemDark;
+
     const { scrollYProgress: rawProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
     const scrollYProgress = useSpring(rawProgress, { stiffness: 22, damping: 45, mass: 1.0, restDelta: 0.0005 });
 
-    const bgOpacity = useTransform(scrollYProgress, [0.05, 0.25], [1, 0.1]);
-    const bgScale   = useTransform(scrollYProgress, [0.05, 0.25], [1, 1.04]);
-    const c1y = useTransform(scrollYProgress, [0.12, 0.27], [65, 0]);
-    const c1o = useTransform(scrollYProgress, [0.12, 0.25], [0, 1]);
-    const c1s = useTransform(scrollYProgress, [0.12, 0.27], [0.96, 1]);
-    const c2y = useTransform(scrollYProgress, [0.24, 0.39], [65, 0]);
-    const c2o = useTransform(scrollYProgress, [0.24, 0.37], [0, 1]);
-    const c2s = useTransform(scrollYProgress, [0.24, 0.39], [0.96, 1]);
-    const c3y = useTransform(scrollYProgress, [0.36, 0.51], [65, 0]);
-    const c3o = useTransform(scrollYProgress, [0.36, 0.49], [0, 1]);
-    const c3s = useTransform(scrollYProgress, [0.36, 0.51], [0.96, 1]);
-    const c4y = useTransform(scrollYProgress, [0.48, 0.63], [65, 0]);
-    const c4o = useTransform(scrollYProgress, [0.48, 0.61], [0, 1]);
-    const c4s = useTransform(scrollYProgress, [0.48, 0.63], [0.96, 1]);
+    const bgOpacity = useTransform(scrollYProgress, [0.05, 0.30], [1, 0.1]);
+    const bgScale   = useTransform(scrollYProgress, [0.05, 0.30], [1, 1.04]);
+    const c1y = useTransform(scrollYProgress, [0.25, 0.45], [65, 0]);
+    const c1o = useTransform(scrollYProgress, [0.25, 0.43], [0, 1]);
+    const c1s = useTransform(scrollYProgress, [0.25, 0.45], [0.96, 1]);
+    const c2y = useTransform(scrollYProgress, [0.25, 0.45], [65, 0]);
+    const c2o = useTransform(scrollYProgress, [0.25, 0.43], [0, 1]);
+    const c2s = useTransform(scrollYProgress, [0.25, 0.45], [0.96, 1]);
+    const c3y = useTransform(scrollYProgress, [0.25, 0.45], [65, 0]);
+    const c3o = useTransform(scrollYProgress, [0.25, 0.43], [0, 1]);
+    const c3s = useTransform(scrollYProgress, [0.25, 0.45], [0.96, 1]);
+    const c4y = useTransform(scrollYProgress, [0.25, 0.45], [65, 0]);
+    const c4o = useTransform(scrollYProgress, [0.25, 0.43], [0, 1]);
+    const c4s = useTransform(scrollYProgress, [0.25, 0.45], [0.96, 1]);
 
     return (
         <div ref={containerRef} className="w-full h-[130vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
@@ -62,12 +68,12 @@ function DesktopProblem() {
                     <p className="text-sm md:text-base text-white/60 max-w-xl mx-auto font-light leading-relaxed">{t.problem.subheading}</p>
                 </div>
 
-                <div className="relative w-full max-w-[1020px] h-[360px] md:h-[480px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
+                <div className="relative w-full max-w-[1020px] h-[420px] md:h-[560px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
                     <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-transform" style={{ opacity: bgOpacity, scale: bgScale }}>
                         <img src={ProblemImg.src} alt="Diagram" />
                     </motion.div>
                     <div className="absolute inset-0 z-20 grid grid-cols-2 gap-3 md:gap-5 p-3 md:p-8">
-                        <motion.div style={{ opacity: c1o, y: c1y, scale: c1s }} className={cardBase} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+                        <motion.div style={{ opacity: c1o, y: c1y, scale: c1s }} className={cardBase} whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
                             <div className={iconBox}><ClockIcon /></div>
                             <div className="flex flex-col justify-center min-w-0">
                                 <h3 className="text-sm md:text-base font-normal text-white mb-1 leading-snug">
@@ -77,7 +83,7 @@ function DesktopProblem() {
                             </div>
                         </motion.div>
 
-                        <motion.div style={{ opacity: c2o, y: c2y, scale: c2s }} className={cardBase} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+                        <motion.div style={{ opacity: c2o, y: c2y, scale: c2s }} className={cardBase} whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
                             <div className={iconBox}><CalendarIcon /></div>
                             <div className="flex flex-col justify-center min-w-0">
                                 <h3 className="text-sm md:text-base font-normal text-white mb-1 leading-snug">
@@ -87,7 +93,7 @@ function DesktopProblem() {
                             </div>
                         </motion.div>
 
-                        <motion.div style={{ opacity: c3o, y: c3y, scale: c3s }} className={cardBase} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+                        <motion.div style={{ opacity: c3o, y: c3y, scale: c3s }} className={cardBase} whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
                             <div className={iconBox}><BlockIcon /></div>
                             <div className="flex flex-col justify-center min-w-0">
                                 <h3 className="text-sm md:text-base font-normal text-white mb-1 leading-snug">
@@ -97,7 +103,7 @@ function DesktopProblem() {
                             </div>
                         </motion.div>
 
-                        <motion.div style={{ opacity: c4o, y: c4y, scale: c4s }} className={cardBase} whileHover={{ scale: 1.02 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
+                        <motion.div style={{ opacity: c4o, y: c4y, scale: c4s }} className={cardBase} whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
                             <div className={iconBox}><TrendingDownIcon /></div>
                             <div className="flex flex-col justify-center min-w-0">
                                 <h3 className="text-sm md:text-base font-normal text-white mb-1 leading-snug">
