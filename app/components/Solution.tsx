@@ -2,8 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import SolutionDark from '../assets/Solution Dark.png';
-import SolutionLight from '../assets/Solution Light.png';
+import Spline from '@splinetool/react-spline';
 import { useLang } from '../i18n/LangContext';
 import { useDemoModal } from '../i18n/DemoModalContext';
 import { useTheme } from '../i18n/ThemeContext';
@@ -52,13 +51,15 @@ function DesktopSolution() {
     const s = t.solution;
 
     const { theme } = useTheme();
-    const SolutionImg = theme === 'light' ? SolutionLight : SolutionDark;
     const hoverScale = theme === 'light' ? {} : { scale: 1.02 };
+    const splineScene = theme === 'light'
+        ? 'https://prod.spline.design/iDL6mmqbgpFmysa7/scene.splinecode'
+        : 'https://prod.spline.design/aNI0aH6YkA2CO6WA/scene.splinecode';
 
     const { scrollYProgress: rawProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
     const scrollYProgress = useSpring(rawProgress, { stiffness: 22, damping: 45, mass: 1.0, restDelta: 0.0005 });
 
-    const diagramOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0]);
+    const diagramOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0.18]);
     const diagramScale   = useTransform(scrollYProgress, [0.05, 0.22], [1, 1.03]);
     const mainCardY = useTransform(scrollYProgress, [0.18, 0.34], [70, 0]);
     const mainCardO = useTransform(scrollYProgress, [0.18, 0.32], [0, 1]);
@@ -84,8 +85,11 @@ function DesktopSolution() {
                 </div>
 
                 <div className="relative w-full max-w-[1020px] h-[510px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
-                    <motion.div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none will-change-transform" style={{ opacity: diagramOpacity, scale: diagramScale }}>
-                        <img src={SolutionImg.src} alt="Diagram" />
+                    <motion.div className="absolute z-10 will-change-transform" style={{ opacity: diagramOpacity, scale: diagramScale, inset: '-10%' }}>
+                        <Spline
+                            scene={splineScene}
+                            className="w-full h-full"
+                        />
                     </motion.div>
 
                     <div className="absolute inset-0 z-20 w-full h-full p-3 md:p-4 flex flex-col md:flex-row gap-4 md:gap-5 overflow-hidden">

@@ -2,8 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import ProblemDark from '../assets/Problem Dark.png';
-import ProblemLight from '../assets/Problem Light.png';
+import Spline from '@splinetool/react-spline';
 import { useLang } from '../i18n/LangContext';
 import { useTheme } from '../i18n/ThemeContext';
 
@@ -38,7 +37,9 @@ function DesktopProblem() {
 
     const { theme } = useTheme();
     const hoverScale = theme === 'light' ? {} : { scale: 1.02 };
-    const ProblemImg = theme === 'light' ? ProblemLight : ProblemDark;
+    const splineScene = theme === 'light'
+        ? 'https://prod.spline.design/CwD47pXT1o1ooBwr/scene.splinecode'
+        : 'https://prod.spline.design/z2ECl-oMJqwWazTM/scene.splinecode';
 
     const { scrollYProgress: rawProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
     const scrollYProgress = useSpring(rawProgress, { stiffness: 22, damping: 45, mass: 1.0, restDelta: 0.0005 });
@@ -69,8 +70,11 @@ function DesktopProblem() {
                 </div>
 
                 <div className="relative w-full max-w-[1020px] h-[420px] md:h-[560px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
-                    <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none will-change-transform" style={{ opacity: bgOpacity, scale: bgScale }}>
-                        <img src={ProblemImg.src} alt="Diagram" />
+                    <motion.div className="absolute will-change-transform" style={{ opacity: bgOpacity, scale: bgScale, inset: '-10%' }}>
+                        <Spline
+                            scene={splineScene}
+                            className="w-full h-full"
+                        />
                     </motion.div>
                     <div className="absolute inset-0 z-20 grid grid-cols-2 gap-3 md:gap-5 p-3 md:p-8">
                         <motion.div style={{ opacity: c1o, y: c1y, scale: c1s }} className={cardBase} whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>

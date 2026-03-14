@@ -12,6 +12,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.1.0",
     "framer-motion": "^12.35.0",
     "next": "16.1.6",
     "react": "19.2.3",
