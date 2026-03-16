@@ -15,7 +15,7 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: "Cataly AI",
-  description: "La infraestructura neuronal para los ingresos",
+  description: "El sistema de adquisición que cierra los huecos de tu pipeline.",
   other: {
     "facebook-domain-verification": "s9anaaxasdwdml5t0vjulautg7ul9v",
   },

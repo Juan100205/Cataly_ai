@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../i18n/LangContext';
+import CountUp, { parseMetric } from './CountUp';
 
 const ClockIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-8 h-8">
@@ -76,7 +77,10 @@ export default function Experiences() {
 
                             {/* Metric */}
                             <div className="text-4xl md:text-5xl font-medium tracking-tight text-[#10B981] mb-3 tabular-nums">
-                                {fact.metric}
+                                {(() => {
+                                    const { prefix, end, suffix, decimals } = parseMetric(fact.metric);
+                                    return <CountUp end={end} prefix={prefix} suffix={suffix} decimals={decimals} duration={2.2} />;
+                                })()}
                             </div>
 
                             {/* Title */}

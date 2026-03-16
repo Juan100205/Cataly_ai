@@ -4,19 +4,25 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../i18n/LangContext';
 import { translations } from '../i18n/translations';
+import CountUp, { parseMetric } from '../components/CountUp';
 
-const StatCard = ({ value, label, delay = 0 }: { value: string, label: string, delay?: number }) => (
-    <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay }}
-        className="flex flex-col items-center justify-center p-12 rounded-[2.5rem] border border-white/[0.05] bg-white/[0.01] backdrop-blur-xl"
-    >
-        <span className="text-6xl md:text-8xl font-medium tracking-tighter text-[#10B981] mb-4">{value}</span>
-        <span className="text-sm md:text-base text-white/40 tracking-widest uppercase font-light text-center">{label}</span>
-    </motion.div>
-);
+const StatCard = ({ value, label, delay = 0 }: { value: string, label: string, delay?: number }) => {
+    const { prefix, end, suffix, decimals } = parseMetric(value);
+    return (
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay }}
+            className="flex flex-col items-center justify-center p-12 rounded-[2.5rem] border border-white/[0.05] bg-white/[0.01] backdrop-blur-xl"
+        >
+            <span className="text-6xl md:text-8xl font-medium tracking-tighter text-[#10B981] mb-4">
+                <CountUp end={end} prefix={prefix} suffix={suffix} decimals={decimals} duration={2.4} />
+            </span>
+            <span className="text-sm md:text-base text-white/40 tracking-widest uppercase font-light text-center">{label}</span>
+        </motion.div>
+    );
+};
 
 export default function ResultsPage() {
     const { lang } = useLang();
@@ -40,9 +46,9 @@ export default function ResultsPage() {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-                    <StatCard value="40%+" label={t.stat1Label} />
-                    <StatCard value="<60s" label={t.stat2Label} delay={0.1} />
-                    <StatCard value="99.9%" label={t.stat3Label} delay={0.2} />
+                    <StatCard value={t.stat1Value} label={t.stat1Label} />
+                    <StatCard value={t.stat2Value} label={t.stat2Label} delay={0.1} />
+                    <StatCard value={t.stat3Value} label={t.stat3Label} delay={0.2} />
                 </div>
 
                 {/* Case Study Grid */}
@@ -67,16 +73,14 @@ export default function ResultsPage() {
                     </div>
                 </div>
 
-                {/* Trust Section */}
+                {/* Transparency Section */}
                 <div className="text-center p-20 rounded-[3.5rem] bg-gradient-to-b from-white/[0.03] to-transparent border border-white/[0.05]">
-                    <h3 className="text-2xl font-light text-white/60 mb-8 italic">{t.testimonial}</h3>
-                    <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 rounded-full bg-white/10 mb-4 overflow-hidden border border-[#10B981]/30">
-                            <div className="w-full h-full bg-[#10B981]/20 flex items-center justify-center text-[#10B981] text-xs font-bold">CT</div>
-                        </div>
-                        <span className="text-white font-medium">{t.testimonialRole}</span>
-                        <span className="text-white/30 text-sm">{t.testimonialCompany}</span>
+                    <div className="w-8 h-8 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 flex items-center justify-center mx-auto mb-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 text-[#10B981]">
+                            <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
+                        </svg>
                     </div>
+                    <p className="text-lg text-white/60 max-w-2xl mx-auto font-light leading-relaxed">{t.testimonial}</p>
                 </div>
             </div>
 
