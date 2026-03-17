@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { motion, useScroll, useTransform, useSpring, type Variants } from 'framer-motion';
 import { useLang } from '../i18n/LangContext';
 import { useDemoModal } from '../i18n/DemoModalContext';
+import { useTheme } from '../i18n/ThemeContext';
 
 // Below-fold sections: lazy loaded — no bloquean el render inicial
 const Experiences  = dynamic(() => import('../components/Experiences'),  { ssr: false });
@@ -28,9 +29,10 @@ const sectionVariants: Variants = {
 };
 
 function SectionDivider() {
+    const { theme } = useTheme();
     return (
         <div className="w-full flex justify-center py-2 pointer-events-none select-none" aria-hidden>
-            <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+            <div className={`w-[1px] h-16 bg-gradient-to-b from-transparent ${theme === 'light' ? 'via-black/10' : 'via-white/10'} to-transparent`} />
         </div>
     );
 }
@@ -51,9 +53,11 @@ const CHIPS = {
     ],
 } as const;
 
-export default function Home() {
+export default function Home({ splineScene }: { splineScene?: React.ReactNode }) {
     const { t, lang } = useLang();
     const { open } = useDemoModal();
+    const { theme } = useTheme();
+    const isLight = theme === 'light';
 
     const { scrollY } = useScroll();
     const rawHeroY = useTransform(scrollY, [0, 600], [0, -70]);
@@ -77,44 +81,45 @@ export default function Home() {
                     animate="visible"
                     variants={sectionVariants}
                 >
-                    <main className="flex-1 flex flex-col items-center justify-center relative rounded-[2.5rem] border border-white/[0.06] bg-white/[0.01] backdrop-blur-3xl overflow-hidden shadow-2xl">
+                    <main className={`flex-1 relative rounded-[2.5rem] backdrop-blur-3xl shadow-2xl grid grid-cols-1 lg:grid-cols-2 overflow-hidden ${isLight ? 'border border-black/[0.08] bg-black/[0.02]' : 'border border-white/[0.06] bg-white/[0.01]'}`}>
 
-                        {/* Dramatic radial gradient from top */}
+                        {/* Radial gradient */}
                         <div
                             className="absolute inset-0 pointer-events-none z-0"
                             style={{
-                                background: 'radial-gradient(ellipse 90% 55% at 50% -5%, rgba(16,185,129,0.22) 0%, rgba(16,185,129,0.04) 55%, transparent 75%)',
+                                background: 'radial-gradient(ellipse 90% 55% at 30% -5%, rgba(16,185,129,0.22) 0%, rgba(16,185,129,0.04) 55%, transparent 75%)',
                             }}
                         />
 
-                        {/* Subtle grid pattern */}
+                        {/* Grid pattern */}
                         <div
                             className="absolute inset-0 pointer-events-none z-0"
                             style={{
                                 backgroundImage:
                                     'linear-gradient(rgba(16,185,129,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.06) 1px, transparent 1px)',
                                 backgroundSize: '64px 64px',
-                                maskImage: 'radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 80%)',
-                                WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 0%, black 30%, transparent 80%)',
+                                maskImage: 'radial-gradient(ellipse 80% 70% at 30% 0%, black 30%, transparent 80%)',
+                                WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 30% 0%, black 30%, transparent 80%)',
                             }}
                         />
 
-                        {/* Faint bottom fade */}
+                        {/* Bottom fade */}
                         <div
                             className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-0"
-                            style={{ background: 'linear-gradient(to top, rgba(10,10,12,0.6), transparent)' }}
+                            style={{ background: isLight ? 'linear-gradient(to top, rgba(255,255,255,0.6), transparent)' : 'linear-gradient(to top, rgba(10,10,12,0.6), transparent)' }}
                         />
 
+                        {/* ── LEFT: contenido ── */}
                         <motion.div
                             style={{ y: heroY, opacity: heroOpacity }}
-                            className="relative z-10 flex flex-col items-center text-center space-y-7 max-w-4xl px-4 py-16"
+                            className="relative z-10 flex flex-col justify-center space-y-6 px-35 py-24"
                         >
-                            {/* Live badge */}
+                            {/* Badge */}
                             <motion.div
                                 initial={{ opacity: 0, y: 14, scale: 0.96 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 transition={{ duration: 0.9, ease: EXPO_OUT, delay: 0 }}
-                                className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#10B981]/25 bg-[#10B981]/[0.07] backdrop-blur-sm"
+                                className="inline-flex w-fit items-center gap-2 px-4 py-1.5 rounded-full border border-[#10B981]/25 bg-[#10B981]/[0.07] backdrop-blur-sm"
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
                                 <span className="text-[11px] text-[#10B981] font-medium tracking-[0.18em] uppercase">
@@ -124,19 +129,19 @@ export default function Home() {
 
                             {/* Headline */}
                             <motion.h1
-                                className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight leading-[1.05]"
+                                className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight leading-[1.05]"
                                 initial={{ opacity: 0, y: 32 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1.2, ease: EXPO_OUT, delay: 0.1 }}
                             >
-                                <span className="text-white">{t.hero.line1}</span><br />
+                                <span className={isLight ? 'text-black' : 'text-white'}>{t.hero.line1}</span><br />
                                 <span className="text-[#10B981]">{t.hero.line2}</span>
-                                {t.hero.line3 && <><br /><span className="text-white/90">{t.hero.line3}</span></>}
+                                {t.hero.line3 && <><br /><span className={isLight ? 'text-black/80' : 'text-white/90'}>{t.hero.line3}</span></>}
                             </motion.h1>
 
                             {/* Subtitle */}
                             <motion.p
-                                className="text-base md:text-lg text-white/50 max-w-xl font-light leading-relaxed"
+                                className={`text-sm md:text-base max-w-md font-light leading-relaxed ${isLight ? 'text-black/55' : 'text-white/50'}`}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1.2, ease: EXPO_OUT, delay: 0.25 }}
@@ -146,7 +151,7 @@ export default function Home() {
 
                             {/* CTAs */}
                             <motion.div
-                                className="flex flex-col sm:flex-row items-center gap-4"
+                                className="flex flex-col sm:flex-row items-start gap-4"
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, ease: EXPO_OUT, delay: 0.4 }}
@@ -159,7 +164,7 @@ export default function Home() {
                                 </button>
                                 <Link
                                     href="/results"
-                                    className="flex items-center gap-1.5 text-sm text-white/40 hover:text-white/80 transition-colors duration-200"
+                                    className={`flex items-center gap-1.5 text-sm transition-colors duration-200 self-center ${isLight ? 'text-black/40 hover:text-black/80' : 'text-white/40 hover:text-white/80'}`}
                                 >
                                     {t.navbar.results}
                                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,7 +175,7 @@ export default function Home() {
 
                             {/* Proof chips */}
                             <motion.div
-                                className="flex flex-wrap justify-center gap-2.5"
+                                className="flex flex-wrap gap-2.5"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1.2, ease: EXPO_OUT, delay: 0.58 }}
@@ -178,13 +183,34 @@ export default function Home() {
                                 {chips.map(({ val, label }) => (
                                     <div
                                         key={val}
-                                        className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.07] text-xs text-white/45"
+                                        className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs border ${
+                                            isLight
+                                                ? 'bg-black/[0.06] border-black/[0.12] text-black/60'
+                                                : 'bg-white/[0.04] border-white/[0.07] text-white/45'
+                                        }`}
                                     >
-                                        <span className="font-medium text-white/75 tabular-nums">{val}</span>
+                                        <span className={`font-medium tabular-nums ${isLight ? 'text-black/80' : 'text-white/75'}`}>{val}</span>
                                         <span>{label}</span>
                                     </div>
                                 ))}
                             </motion.div>
+                        </motion.div>
+
+                        {/* ── RIGHT: Spline ── */}
+                        <motion.div
+                            className="hidden lg:block relative z-10 min-h-[500px]"
+                            style={{ opacity: isLight ? 1 : 0.6 }}
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: isLight ? 1 : 0.6, x: 0 }}
+                            transition={{ duration: 1.4, ease: EXPO_OUT, delay: 0.2 }}
+                        >
+                            <div className="absolute left-0 top-[15%] bottom-[15%] w-px bg-white/[0.06]" />
+                            {splineScene}
+                            {/* Fade inferior para ocultar marca de agua */}
+                            <div
+                                className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none z-20"
+                                style={{ background: isLight ? 'linear-gradient(to top, rgba(255,255,255,1) 0%, transparent 100%)' : 'linear-gradient(to top, rgba(10,10,12,1) 0%, transparent 100%)' }}
+                            />
                         </motion.div>
                     </main>
                 </motion.section>
