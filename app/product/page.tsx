@@ -2,14 +2,19 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import SolutionImg from '../assets/Solution Dark.png';
+import Spline from '@splinetool/react-spline';
 import BrainImg from '../assets/Brain.png';
 import { useLang } from '../i18n/LangContext';
+import { useTheme } from '../i18n/ThemeContext';
 import { translations } from '../i18n/translations';
 
 export default function ProductPage() {
     const { lang } = useLang();
+    const { theme } = useTheme();
     const t = translations[lang].product;
+    const splineScene = theme === 'light'
+        ? 'https://prod.spline.design/iDL6mmqbgpFmysa7/scene.splinecode'
+        : 'https://prod.spline.design/aNI0aH6YkA2CO6WA/scene.splinecode';
 
     return (
         <div className="min-h-screen bg-transparent text-white pt-32 pb-20 px-6">
@@ -55,10 +60,9 @@ export default function ProductPage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="relative aspect-square rounded-[3rem] border border-white/[0.05] bg-white/[0.01] flex items-center justify-center overflow-hidden"
+                        className="relative rounded-[3rem] border border-white/[0.05] bg-white/[0.01] overflow-hidden" style={{ aspectRatio: '16/9' }}
                     >
-                        <div className="absolute inset-0 bg-gradient-radial from-[#10B981]/10 to-transparent"></div>
-                        <img src={SolutionImg.src} alt="Lead Filtering Diagram" className="relative z-10 w-[80%] opacity-80" />
+                        <Spline scene={splineScene} style={{ width: '100%', height: '100%' }} />
                     </motion.div>
                 </div>
 
