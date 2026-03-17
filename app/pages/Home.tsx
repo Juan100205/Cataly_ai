@@ -112,7 +112,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                         {/* ── LEFT: contenido ── */}
                         <motion.div
                             style={{ y: heroY, opacity: heroOpacity }}
-                            className="relative z-10 flex flex-col justify-center space-y-6 px-35 py-24"
+                            className="relative z-10 flex flex-col justify-center space-y-6 px-6 py-12 sm:px-10 sm:py-16 lg:px-35 lg:py-24"
                         >
                             {/* Badge */}
                             <motion.div
