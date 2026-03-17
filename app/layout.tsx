@@ -5,6 +5,7 @@ import Providers from "./components/Providers";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LangToggle from "./components/LangToggle";
+import PageLoader from "./components/PageLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${geistSans.variable} antialiased bg-[#0A0A0C]`}>
         <Providers>
+          <PageLoader />
           <Navbar />
           <LangToggle />
           {children}

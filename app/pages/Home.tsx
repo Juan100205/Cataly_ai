@@ -218,7 +218,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full flex flex-col justify-center py-6"
+                    className="w-full flex flex-col justify-center py-32 md:py-40"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}
@@ -230,7 +230,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full h-auto"
+                    className="w-full h-auto py-32 md:py-40"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}
@@ -242,7 +242,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full h-auto"
+                    className="w-full h-auto py-32 md:py-40"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}
@@ -254,7 +254,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full h-auto"
+                    className="w-full h-auto py-32 md:py-40"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}
@@ -266,7 +266,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full h-auto"
+                    className="w-full h-auto py-24 md:py-32"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}
@@ -278,7 +278,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
                 <SectionDivider />
 
                 <motion.section
-                    className="w-full h-auto"
+                    className="w-full h-auto py-24 md:py-32"
                     initial="hidden"
                     whileInView="visible"
                     variants={sectionVariants}

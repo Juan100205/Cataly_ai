@@ -12,16 +12,17 @@ const InstagramIcon = () => (
     </svg>
 );
 
-const WhatsAppIcon = () => (
+const LinkedInIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 hover:text-white transition-colors cursor-pointer">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+        <rect x="2" y="9" width="4" height="12"></rect>
+        <circle cx="4" cy="4" r="2"></circle>
     </svg>
 );
 
-const MetaIcon = () => (
+const WhatsAppIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 hover:text-white transition-colors cursor-pointer">
-        <path d="M4 12C4 8.68629 6.68629 6 10 6C11.5362 6 12.9372 6.57866 14 7.53512C15.0628 6.57866 16.4638 6 18 6C21.3137 6 24 8.68629 24 12C24 15.3137 21.3137 18 18 18C16.4638 18 15.0628 17.4213 14 16.4649C12.9372 17.4213 11.5362 18 10 18C6.68629 18 4 15.3137 4 12Z" />
-        <path d="M14 7.53512L10 16.4649" />
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
     </svg>
 );
 
@@ -80,9 +81,13 @@ export default function Footer() {
                 {/* Bottom Section */}
                 <div className="flex flex-col md:flex-row justify-between items-center w-full mt-auto gap-4">
                     <div className="flex space-x-5 text-white/50">
-                        <InstagramIcon />
-                        <WhatsAppIcon />
-                        <MetaIcon />
+                        <a href="https://www.instagram.com/grupo.cataly/" target="_blank" rel="noopener noreferrer">
+                            <InstagramIcon />
+                        </a>
+                        <LinkedInIcon />
+                        <a href="https://wa.me/573202916190" target="_blank" rel="noopener noreferrer">
+                            <WhatsAppIcon />
+                        </a>
                     </div>
                     <div className="text-xs md:text-sm text-white/30 font-light text-center md:text-right">
                         {t.footer.copyright}
