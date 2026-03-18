@@ -1,7 +1,14 @@
-const React = require('react');
+import React from 'react';
 
-const Spline = ({ scene, ...props }: { scene: string; [key: string]: unknown }) =>
-    React.createElement('div', { 'data-testid': 'spline-mock', 'data-scene': scene, ...props });
+const Spline = ({ onLoad, scene, style }: {
+    onLoad?: (app: unknown) => void;
+    scene?: string;
+    style?: React.CSSProperties;
+}) => {
+    React.useEffect(() => {
+        onLoad?.({}); // simula que Spline cargó inmediatamente
+    }, [onLoad]);
+    return <div data-testid="spline-mock" data-scene={scene} style={style} />;
+};
 
-module.exports = Spline;
-module.exports.default = Spline;
+export default Spline;

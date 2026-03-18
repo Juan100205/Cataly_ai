@@ -2,33 +2,36 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLoading } from '../i18n/LoadingContext';
 
-const EXPO = [0.16, 1, 0.3, 1] as const;
+const EXPO    = [0.16, 1, 0.3, 1] as const;
+const MIN_MS  = 1600;
+const MAX_MS  = 9000;
+const LG_PX   = 1024; // breakpoint donde aparece Spline (lg:block)
 
 export default function PageLoader() {
     const [visible, setVisible] = useState(true);
+    const [minDone, setMinDone] = useState(false);
+    const { splineReady }       = useLoading();
 
     useEffect(() => {
-        const dismiss = () => setVisible(false);
+        let dismissed = false;
+        const dismiss = () => { if (!dismissed) { dismissed = true; setVisible(false); } };
 
-        // Tiempo mínimo de display: 1.4s — luego esperamos window.onload
-        const minTimer = setTimeout(() => {
-            if (document.readyState === 'complete') {
-                dismiss();
-            } else {
-                window.addEventListener('load', dismiss, { once: true });
-            }
-        }, 1400);
+        const min = setTimeout(() => {
+            setMinDone(true);
+            // Móvil: Spline está hidden → no esperamos onLoad
+            if (window.innerWidth < LG_PX) dismiss();
+        }, MIN_MS);
 
-        // Fallback: ocultar siempre antes de 6s
-        const fallback = setTimeout(dismiss, 6000);
-
-        return () => {
-            clearTimeout(minTimer);
-            clearTimeout(fallback);
-            window.removeEventListener('load', dismiss);
-        };
+        const fallback = setTimeout(dismiss, MAX_MS);
+        return () => { clearTimeout(min); clearTimeout(fallback); };
     }, []);
+
+    // Desktop: dismiss cuando Spline termina de cargar (y ya pasó MIN_MS)
+    useEffect(() => {
+        if (minDone && splineReady) setVisible(false);
+    }, [minDone, splineReady]);
 
     return (
         <AnimatePresence>
@@ -46,11 +49,9 @@ export default function PageLoader() {
                         transition={{ duration: 0.8, ease: EXPO }}
                         className="flex flex-col items-center gap-8"
                     >
-                        {/* Ring animado */}
+                        {/* Ring */}
                         <div className="relative w-16 h-16">
-                            {/* Outer static ring */}
                             <div className="absolute inset-0 rounded-full border border-white/[0.06]" />
-                            {/* Spinning arc */}
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
@@ -61,7 +62,6 @@ export default function PageLoader() {
                                     borderRightColor: 'rgba(16,185,129,0.2)',
                                 }}
                             />
-                            {/* Inner dot */}
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <motion.div
                                     animate={{ opacity: [0.5, 1, 0.5] }}
@@ -73,12 +73,8 @@ export default function PageLoader() {
 
                         {/* Wordmark */}
                         <div className="flex items-baseline gap-[0.15em]">
-                            <span className="text-white text-2xl font-light tracking-[0.22em] uppercase">
-                                Cataly
-                            </span>
-                            <span className="text-[#10B981] text-2xl font-light tracking-[0.22em] uppercase">
-                                AI
-                            </span>
+                            <span className="text-white text-2xl font-light tracking-[0.22em] uppercase">Cataly</span>
+                            <span className="text-[#10B981] text-2xl font-light tracking-[0.22em] uppercase">AI</span>
                         </div>
 
                         {/* Dots */}
@@ -88,24 +84,15 @@ export default function PageLoader() {
                                     key={i}
                                     className="w-1 h-1 rounded-full bg-[#10B981]"
                                     animate={{ opacity: [0.2, 1, 0.2] }}
-                                    transition={{
-                                        duration: 1.4,
-                                        repeat: Infinity,
-                                        delay: i * 0.22,
-                                        ease: 'easeInOut',
-                                    }}
+                                    transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.22, ease: 'easeInOut' }}
                                 />
                             ))}
                         </div>
                     </motion.div>
 
-                    {/* Glow de fondo */}
                     <div
                         className="absolute inset-0 pointer-events-none"
-                        style={{
-                            background:
-                                'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(16,185,129,0.05) 0%, transparent 70%)',
-                        }}
+                        style={{ background: 'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(16,185,129,0.05) 0%, transparent 70%)' }}
                     />
                 </motion.div>
             )}

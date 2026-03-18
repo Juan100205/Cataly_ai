@@ -1,30 +1,27 @@
 "use client";
 
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { motion, useScroll, useTransform, useSpring, type Variants } from 'framer-motion';
+import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
 import { useLang } from '../i18n/LangContext';
 import { useDemoModal } from '../i18n/DemoModalContext';
 import { useTheme } from '../i18n/ThemeContext';
 
-// Below-fold sections: lazy loaded — no bloquean el render inicial
-const Experiences  = dynamic(() => import('../components/Experiences'),  { ssr: false });
-const Process      = dynamic(() => import('../components/Process'),      { ssr: false });
-const Problem      = dynamic(() => import('../components/Problem'),      { ssr: false });
-const Solution     = dynamic(() => import('../components/Solution'),     { ssr: false });
-const Calculator   = dynamic(() => import('../components/Calculator'),   { ssr: false });
-const CallToAction = dynamic(() => import('../components/CallToAction'), { ssr: false });
-// Modal: cargado solo cuando el usuario interactúa por primera vez
-const DemoModal    = dynamic(() => import('../components/DemoModal'),    { ssr: false });
+import Experiences  from '../components/Experiences';
+import Process      from '../components/Process';
+import Problem      from '../components/Problem';
+import Solution     from '../components/Solution';
+import Calculator   from '../components/Calculator';
+import CallToAction from '../components/CallToAction';
+import DemoModal    from '../components/DemoModal';
 
 const EXPO_OUT = [0.16, 1, 0.3, 1] as const;
 
 const sectionVariants: Variants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 1.4, ease: EXPO_OUT }
+        transition: { duration: 0.7, ease: EXPO_OUT }
     }
 };
 
@@ -60,8 +57,7 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
     const isLight = theme === 'light';
 
     const { scrollY } = useScroll();
-    const rawHeroY = useTransform(scrollY, [0, 600], [0, -70]);
-    const heroY = useSpring(rawHeroY, { stiffness: 60, damping: 30, mass: 0.8 });
+    const heroY = useTransform(scrollY, [0, 600], [0, -50]);
     const heroOpacity = useTransform(scrollY, [0, 400], [1, 0.15]);
 
     const chips = CHIPS[lang];
@@ -198,13 +194,12 @@ export default function Home({ splineScene }: { splineScene?: React.ReactNode })
 
                         {/* ── RIGHT: Spline ── */}
                         <motion.div
-                            className="hidden lg:block relative z-10 min-h-[500px]"
-                            style={{ opacity: isLight ? 1 : 0.6 }}
+                            className="hidden lg:block relative z-10 min-h-[500px] content-top scale-120 origin-top-left"
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: isLight ? 1 : 0.6, x: 0 }}
                             transition={{ duration: 1.4, ease: EXPO_OUT, delay: 0.2 }}
                         >
-                            <div className="absolute left-0 top-[15%] bottom-[15%] w-px bg-white/[0.06]" />
+                            <div className="absolute left-0 top-[15%] bottom-[15%] w-px bg-white/[0.06] " />
                             {splineScene}
                             {/* Fade inferior para ocultar marca de agua */}
                             <div

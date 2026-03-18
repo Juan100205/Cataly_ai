@@ -2,10 +2,12 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import Spline from '@splinetool/react-spline';
+import dynamic from 'next/dynamic';
 import { useLang } from '../i18n/LangContext';
 import { useDemoModal } from '../i18n/DemoModalContext';
 import { useTheme } from '../i18n/ThemeContext';
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), { ssr: false });
 
 const NodeTopology = () => (
     <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -56,26 +58,25 @@ function DesktopSolution() {
         ? 'https://prod.spline.design/iDL6mmqbgpFmysa7/scene.splinecode'
         : 'https://prod.spline.design/aNI0aH6YkA2CO6WA/scene.splinecode';
 
+
     const { scrollYProgress: rawProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-    const scrollYProgress = useSpring(rawProgress, { stiffness: 22, damping: 45, mass: 1.0, restDelta: 0.0005 });
+    const scrollYProgress = useSpring(rawProgress, { stiffness: 40, damping: 65, mass: 0.8, restDelta: 0.001 });
 
     const diagramOpacity = useTransform(scrollYProgress, [0.05, 0.22], [1, 0.18]);
     const diagramScale   = useTransform(scrollYProgress, [0.05, 0.22], [1, 1.03]);
     const mainCardY = useTransform(scrollYProgress, [0.18, 0.34], [70, 0]);
     const mainCardO = useTransform(scrollYProgress, [0.18, 0.32], [0, 1]);
     const mainCardS = useTransform(scrollYProgress, [0.18, 0.34], [0.96, 1]);
+    // sec cards 2 & 3 share the same stagger offset — reuse one set each
     const secCard1Y = useTransform(scrollYProgress, [0.30, 0.46], [60, 0]);
     const secCard1O = useTransform(scrollYProgress, [0.30, 0.44], [0, 1]);
     const secCard1S = useTransform(scrollYProgress, [0.30, 0.46], [0.97, 1]);
-    const secCard2Y = useTransform(scrollYProgress, [0.42, 0.57], [50, 0]);
-    const secCard2O = useTransform(scrollYProgress, [0.42, 0.55], [0, 1]);
-    const secCard2S = useTransform(scrollYProgress, [0.42, 0.57], [0.97, 1]);
-    const secCard3Y = useTransform(scrollYProgress, [0.54, 0.69], [50, 0]);
-    const secCard3O = useTransform(scrollYProgress, [0.54, 0.67], [0, 1]);
-    const secCard3S = useTransform(scrollYProgress, [0.54, 0.69], [0.97, 1]);
+    const secCard23Y = useTransform(scrollYProgress, [0.42, 0.57], [50, 0]);
+    const secCard23O = useTransform(scrollYProgress, [0.42, 0.55], [0, 1]);
+    const secCard23S = useTransform(scrollYProgress, [0.42, 0.57], [0.97, 1]);
 
     return (
-        <div ref={containerRef} className="w-full h-[130vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
+        <div ref={containerRef} className="has-sticky w-full h-[130vh] relative pt-6 rounded-3xl" style={{ isolation: 'isolate' }}>
             <div className="sticky top-8 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
                 <div className="text-center mb-4 px-4">
                     <h2 className="text-3xl lg:text-5xl font-light tracking-tight text-white mb-3">
@@ -86,16 +87,13 @@ function DesktopSolution() {
 
                 <div className="relative w-full max-w-[1020px] h-[510px] rounded-[2rem] overflow-hidden glass-card" style={{ background: 'transparent' }}>
                     <motion.div className="absolute z-10 will-change-transform" style={{ opacity: diagramOpacity, scale: diagramScale, inset: '-10%' }}>
-                        <Spline
-                            scene={splineScene}
-                            className="w-full h-full"
-                        />
+                        <Spline scene={splineScene} className="w-full h-full" />
                     </motion.div>
 
                     <div className="absolute inset-0 z-20 w-full h-full p-3 md:p-4 flex flex-col md:flex-row gap-4 md:gap-5 overflow-hidden">
                         <motion.div style={{ opacity: mainCardO, y: mainCardY, scale: mainCardS }}
                             className="glass-card glass-hover w-full md:w-[45%] min-h-[200px] md:min-h-0 rounded-[2rem] overflow-hidden relative flex flex-col justify-between cursor-pointer will-change-transform"
-                            whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            whileHover={hoverScale} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <div className="p-6 z-10 relative">
                                 <h3 className="text-3xl md:text-4xl font-medium tracking-tight leading-[1.1] mb-4">
@@ -116,7 +114,7 @@ function DesktopSolution() {
                         <div className="w-full md:w-[55%] flex flex-col gap-4 md:gap-5">
                             <motion.div style={{ opacity: secCard1O, y: secCard1Y, scale: secCard1S }}
                                 className="glass-card glass-hover flex-1 rounded-2xl p-5 flex flex-col justify-center relative overflow-hidden cursor-pointer will-change-transform"
-                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-0" />
                                 <h3 className="text-xl md:text-2xl font-normal text-white mb-2 leading-snug relative z-10">
@@ -125,9 +123,9 @@ function DesktopSolution() {
                                 <p className="text-sm text-white/60 font-light leading-relaxed max-w-lg relative z-10">{s.secCard1.body}</p>
                             </motion.div>
 
-                            <motion.div style={{ opacity: secCard2O, y: secCard2Y, scale: secCard2S }}
+                            <motion.div style={{ opacity: secCard23O, y: secCard23Y, scale: secCard23S }}
                                 className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
-                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard2.titleHead}<span className="text-[#10B981]">{s.secCard2.titleGreen}</span>
@@ -135,9 +133,9 @@ function DesktopSolution() {
                                 <p className="text-xs text-white/60 font-light leading-relaxed max-w-xl">{s.secCard2.body}</p>
                             </motion.div>
 
-                            <motion.div style={{ opacity: secCard3O, y: secCard3Y, scale: secCard3S }}
+                            <motion.div style={{ opacity: secCard23O, y: secCard23Y, scale: secCard23S }}
                                 className="glass-card glass-hover h-[95px] rounded-2xl p-4 flex flex-col justify-center cursor-pointer will-change-transform"
-                                whileHover={hoverScale} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                whileHover={hoverScale} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <h3 className="text-base md:text-lg font-normal text-white mb-1 leading-snug">
                                     {s.secCard3.titleHead}<span className="text-[#10B981]">{s.secCard3.titleGreen}</span>{s.secCard3.titleTail}

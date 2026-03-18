@@ -60,17 +60,10 @@ body {
 
 /* ===== RENDERING PERFORMANCE ===== */
 
-/* Deja que el browser salte el render de secciones off-screen */
-section {
+/* content-visibility solo en secciones sin sticky children */
+section:not(.has-sticky) {
   content-visibility: auto;
-  contain-intrinsic-size: 0 800px; /* estimación de altura para evitar layout shift */
-}
-
-/* Optimiza compositing en elementos animados */
-.glass-card,
-.glass-btn {
-  will-change: transform;
-  transform: translateZ(0); /* promueve a su propia capa GPU */
+  contain-intrinsic-size: 0 600px;
 }
 
 /* Imágenes: siempre lazy por defecto salvo explicit eager */
@@ -202,9 +195,7 @@ html.light [class~="divide-white/[0.05]"] > * + * {
 
 .glass-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(10, 22, 18, 0.75) 100%);
-  backdrop-filter: blur(20px) saturate(1.3);
-  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88) 0%, rgba(10, 22, 18, 0.82) 100%);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.35);
   transition:
@@ -273,10 +264,9 @@ html.light [class~="divide-white/[0.05]"] > * + * {
   box-shadow: none;
 }
 
-/* En hover: el borde rota 170° + se vuelve más brillante */
+/* En hover: el borde rota 170° */
 .glass-card:hover::after {
   --border-angle: 315deg;
-  filter: brightness(1.50);
 }
 
 /* Light theme */
@@ -309,7 +299,6 @@ html.light .glass-card:hover {
 
 html.light .glass-card:hover::after {
   --border-angle: 315deg;
-  filter: brightness(1.15);
 }
 
 /* ---- Glass Button ---- */
@@ -326,9 +315,7 @@ html.light .glass-card:hover::after {
   font-size: 0.875rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.86);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.80) 0%, rgba(10, 22, 18, 0.65) 100%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.88) 0%, rgba(10, 22, 18, 0.78) 100%);
   overflow: hidden;
   transition:
     color 0.3s ease,
@@ -383,7 +370,6 @@ html.light .glass-card:hover::after {
 /* El arco del borde gira 240° en hover */
 .glass-btn:hover::after {
   --angle-1: 240deg;
-  filter: brightness(1.60);
 }
 
 .glass-btn:active { transform: translateY(0); }

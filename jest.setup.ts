@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 
-// Mock window.matchMedia (not available in jsdom)
+// jsdom no implementa matchMedia — necesario para ThemeContext
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
-    value: jest.fn((query: string) => ({
+    value: (query: string) => ({
         matches: false,
         media: query,
         onchange: null,
@@ -12,17 +12,12 @@ Object.defineProperty(window, 'matchMedia', {
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn(),
-    })),
+    }),
 });
 
-// Mock localStorage — pre-seed Spanish so LangContext defaults to 'es'
-const localStorageMock = (() => {
-    const store: Record<string, string> = { 'cataly-lang': 'es', 'cataly-theme': 'dark' };
-    return {
-        getItem: (key: string) => store[key] ?? null,
-        setItem: (key: string, value: string) => { store[key] = value; },
-        removeItem: (key: string) => { delete store[key]; },
-        clear: () => { Object.keys(store).forEach(k => delete store[k]); },
-    };
-})();
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+// innerWidth por defecto: desktop
+Object.defineProperty(window, 'innerWidth', {
+    writable: true,
+    configurable: true,
+    value: 1280,
+});

@@ -1,20 +1,19 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
+import { LoadingProvider } from '../../app/i18n/LoadingContext';
 import { LangProvider } from '../../app/i18n/LangContext';
 import { ThemeProvider } from '../../app/i18n/ThemeContext';
 import { DemoModalProvider } from '../../app/i18n/DemoModalContext';
-import DemoModal from '../../app/components/DemoModal';
 
 function AllProviders({ children }: { children: React.ReactNode }) {
     return (
-        <ThemeProvider>
-            <LangProvider>
-                <DemoModalProvider>
-                    {children}
-                    <DemoModal />
-                </DemoModalProvider>
-            </LangProvider>
-        </ThemeProvider>
+        <LoadingProvider>
+            <ThemeProvider>
+                <LangProvider>
+                    <DemoModalProvider>{children}</DemoModalProvider>
+                </LangProvider>
+            </ThemeProvider>
+        </LoadingProvider>
     );
 }
 
